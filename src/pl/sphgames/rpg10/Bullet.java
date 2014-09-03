@@ -12,13 +12,14 @@ public class Bullet {
 	public double x, y;
 	private int damagePower;
 	private double movingXSpeed, movingYSpeed;
-	public static BufferedImage bulletImgN, bulletImgE, bulletImgW, bulletImgS;
+	public static BufferedImage bulletImgN, bulletImgE, fireball, bulletImgS;
 	public BufferedImage bulletImg;
 	public final static long timeBetweenNewBullets = Framework.secInNanosec / 3;
 	public static long timeOfLastCreatedBullet = 0;
-	private static Face face;
 	private int[][] trajectory;
+	private int destinationX, destinationY;
 	private double _angle;
+	private int i;
 
 	
 	
@@ -35,16 +36,18 @@ public class Bullet {
 			this.damagePower = dmg;
 	        this.x = x;
 	        this.y = y;
-	        	        
+	        destinationX = Crosshair.middleX;
+	        destinationY = Crosshair.middleY-(fireball.getHeight()/2);
 	        this.trajectory = new int[2][2];
-			this.trajectory[0][0] = mousePosition.x - 14;
-			this.trajectory[1][0] = mousePosition.y - 14;
+			this.trajectory[0][0] = mousePosition.x-14;
+			this.trajectory[1][0] = mousePosition.y-14;
 			this.trajectory[0][1] = (int)x;
 			this.trajectory[1][1] = (int)y;
 			this._angle = 0;
 			bulletSpeed = 5;
 			setBulletVector(trajectory);
 			this.bulletImg = getBulletImage();
+			System.out.printf("destinationX = %s   destinationY = %s\n",destinationX,destinationY);
 	       
 	        
 	    }
@@ -63,39 +66,16 @@ public class Bullet {
 	
 	public BufferedImage getBulletImage() {
 	
-			return bulletImgW;
+			return fireball;
 
 		
-	}
-	
-	public void setDirectionAndSpeed() {
-		switch (Player.face) {
-		case WEST:
-			movingXSpeed = -bulletSpeed;
-			movingYSpeed = 0;
-			
-		break;
-		case NORTH:
-			movingXSpeed = 0;
-			movingYSpeed = -bulletSpeed;
-			
-		break;
-		case EAST:
-			movingXSpeed = bulletSpeed;
-			movingYSpeed = 0;
-			
-		break;
-		case SOUTH:
-			movingXSpeed = 0;
-			movingYSpeed = bulletSpeed;
-			
-		break;
-		}
 	}
 	
 	public void update() {
 		x += movingXSpeed;
 		y += movingYSpeed;
+
+		System.out.printf("x = %s   y = %s\n",(int)x,(int)y);
 	}
 	
 	public boolean isItLeftScreen() {
@@ -114,7 +94,8 @@ public class Bullet {
 		
 		xH2 = (int) xH / 64;
 		yH2 = (int) yH / 64;
-		
+		if ( (xH > destinationX-25 && xH < destinationX+25) && (yH > destinationY-20 && yH < destinationY+20))
+			return true;
 		if (xH2 > 15 || yH2 > 11)
 			return true;
 		if (World.background[xH2][yH2].isPassable())		

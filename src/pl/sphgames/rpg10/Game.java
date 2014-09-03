@@ -84,8 +84,8 @@ import javax.imageio.ImageIO;
 	           Bullet.bulletImgN = holder;
 	           holder = ImageIO.read(new File("bulletE.png"));
 	           Bullet.bulletImgE = holder;
-	           holder = ImageIO.read(new File("bulletW.png"));
-	           Bullet.bulletImgW = holder;
+	           holder = ImageIO.read(new File("fireball.png"));
+	           Bullet.fireball = holder;
 
 	          
 			}
