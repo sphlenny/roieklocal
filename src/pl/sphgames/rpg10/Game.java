@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 		
 		private World world;
 		private Player player;
+		private AI ai;
 		public ActionHandler actionHandler;
 		private Weapon weapon;
 		private EventHandler eventHandler;
@@ -57,7 +58,7 @@ import javax.imageio.ImageIO;
 	    		player = new Gandalf();
 	    	weapon = player.weapon;
 	    	crosshair = new Crosshair();
-	    	
+	    	ai = new AI();
 	    	objectHandler = new ObjectHandler();
 	    	actionHandler = new ActionHandler();
 	    	actionHandler.passPlayer(player);
@@ -108,6 +109,7 @@ import javax.imageio.ImageIO;
 	    public void UpdateGame(long gameTime, Point mousePosition)
 	    {
 	       world.update();
+	       ai.update();
 	       actionHandler.handleActions();
 	       eventHandler.handleEvents();
 	       player.update();
@@ -119,6 +121,7 @@ import javax.imageio.ImageIO;
 	    public void Draw(Graphics2D g2d, Point mousePosition)
 	    {
 	    	world.draw(g2d);
+	    	ai.Draw(g2d);
 	    	crosshair.draw(g2d, mousePosition);
 	    	drawBullets(g2d);
 	    	drawObjects(g2d);
