@@ -1,5 +1,7 @@
 package pl.sphgames.rpg10;
+import java.awt.Event;
 
+import pl.sphgames.*;
 public class Level1 extends LevelEncoder{
 	
 	private int wallsId;
@@ -15,7 +17,7 @@ public class Level1 extends LevelEncoder{
 		int[] doors = new int[] {8,       2,			3,			0};
 		surfaceId = 3;	
 		createWorld(wallsId, doors, surfaceId);
-		
+
 		new Object(1,6,true,true,Action.NONE,-1,OBJECTTYPE.TREE,3);
 		
 		new Object(1,4,true,true,Action.NONE,-1,OBJECTTYPE.TREE,3);

@@ -29,6 +29,7 @@ import javax.imageio.ImageIO;
 		private Crosshair crosshair;
 		public enum CHARACTER {LEGOLAS, GANDALF};
 		public static CHARACTER charChosen;
+		public static ArrayList<Timer> timerList;
 
 	    public Game()
 	    {
@@ -69,6 +70,7 @@ import javax.imageio.ImageIO;
 	    	world = new World();
 	    	
 	    	bulletsList = new ArrayList<Bullet>();
+	    	timerList = new ArrayList<Timer>();
 	    	objectsList = new ArrayList<Object>();
 	    	levelManager.switchLevel(1);
 	    	Game.getNewList(ObjectHandler.getList());
@@ -119,10 +121,16 @@ import javax.imageio.ImageIO;
 	    	world.draw(g2d);
 	    	crosshair.draw(g2d, mousePosition);
 	    	drawBullets(g2d);
-	    	drawObjects(g2d);  
+	    	drawObjects(g2d);
+	    	drawTimers(g2d);
 	    	player.draw(g2d);
 		    
 	    	 
+	    }
+	    public void drawTimers(Graphics2D g2d) {
+	    	for (int i = 0; i < timerList.size(); i++) {
+	    		timerList.get(i).draw(g2d);
+	    	}
 	    }
 	    
 	    public void drawObjects(Graphics2D g2d) {
@@ -150,6 +158,7 @@ import javax.imageio.ImageIO;
 	            bulletsList.add(b);
 	        }
 	    }
+	    
 	    
 	    private void updateBullets() {
 	    	
